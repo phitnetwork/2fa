@@ -1,6 +1,6 @@
-# Swide 2FA Service
+# PhitNetwork 2FA Service
 
-The Swide 2FA (Two-Factor Authentication) service provides an implementation for two-factor authentication via Google Authenticator and OTP (One-Time Password) code delivery via SMS using Twilio.
+The 2FA (Two-Factor Authentication) service provides an implementation for two-factor authentication via Google Authenticator and OTP (One-Time Password) code delivery via SMS using Twilio.
 
 ## API Usage
 
@@ -114,4 +114,4 @@ To send an OTP code via SMS to the user:
 
 ## Configuration
 
-To use the Swide 2FA service, proper Twilio service configuration is required. Ensure to provide correct credentials in the `twilio_credentials.json` file.
+To use the 2FA service, proper Twilio service configuration is required. Ensure to provide correct credentials in the `twilio_credentials.json` file.

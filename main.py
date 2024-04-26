@@ -59,7 +59,7 @@ def register():
     ga = pyotp.totp.TOTP(secret_key)
 
     # Genera l'URL per l'autenticazione con Google Authenticator
-    auth_url = ga.provisioning_uri(email, issuer_name='Swide 2FA Auth')
+    auth_url = ga.provisioning_uri(email, issuer_name='2FA Auth')
 
     # Costruisci l'URL del codice QR
     qr_code_url = f'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={auth_url}'
