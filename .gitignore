@@ -1,0 +1,17 @@
+# Ignora la cartella venv_2fa e tutti i suoi contenuti
+venv_2fa/
+
+# Ignora tutti i file con estensione .pyc (file bytecode Python)
+*.pyc
+
+# Ignora i file di log
+*.log
+
+# Ignora i file generati automaticamente
+generated_file.txt
+
+# Ignora tutte le cartelle e i file che iniziano con '__'
+__*
+
+# Ignora tutti i file nella cartella temp
+temp/*
