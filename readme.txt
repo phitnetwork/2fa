@@ -1,4 +1,4 @@
-# Swide 2FA Service
+#Swide 2FA Service
 
 The Swide 2FA (Two-Factor Authentication) service provides an implementation for two-factor authentication via Google Authenticator and OTP (One-Time Password) code delivery via SMS using Twilio.
 
