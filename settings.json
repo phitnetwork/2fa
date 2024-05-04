@@ -1,0 +1,4 @@
+{
+    "USERS_SECRET_FILE": "users_secret.json",
+    "TWILIO_CREDENTIALS_FILE": "twilio_credentials.json"
+}

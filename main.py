@@ -4,13 +4,21 @@ import os
 import json
 import pyotp
 
-app = Flask(__name__)
+import classes.settings_manager as settings_manager
 
-# Percorso del file per salvare i secret key degli utenti
-USERS_SECRET_FILE = 'users_secret.json'
+
+'''
+DA AGGIUNGERE:
+- INVIO VIA MAIL DELL'OTP
+- CONNESSIONE A DATABASE ORACLE
+'''
+
+
+app = Flask(__name__)
 
 # Funzione per caricare i secret key degli utenti dal file
 def load_users_secret():
+    USERS_SECRET_FILE = settings_manager.load_option('USERS_SECRET_FILE')
     if os.path.exists(USERS_SECRET_FILE):
         with open(USERS_SECRET_FILE, 'r') as f:
             try:
@@ -23,6 +31,7 @@ def load_users_secret():
     
 # Funzione per salvare i secret key degli utenti nel file
 def save_users_secret(users_secret):
+    USERS_SECRET_FILE = settings_manager.load_option('USERS_SECRET_FILE')
     with open(USERS_SECRET_FILE, 'w') as f:
         json.dump(users_secret, f)
 
@@ -146,7 +155,7 @@ def sms():
     user_number = users_secret[email]['number']
 
     # Twilio settings
-    twilio_credentials = load_twilio_credentials('twilio_credentials.json')
+    twilio_credentials = load_twilio_credentials()
     client = Client(twilio_credentials['account_sid'], twilio_credentials['auth_token'])
 
     totp = pyotp.TOTP(secret_key)
@@ -159,9 +168,10 @@ def sms():
     
     return jsonify({'message': 'Sms inviato correttamente'}), 200
 
-def load_twilio_credentials(filename):
-    with open(filename, 'r') as f:
-        return json.load(f)   
+def load_twilio_credentials():
+    TWILIO_CREDENTIALS_FILE = settings_manager.load_option('TWILIO_CREDENTIALS_FILE')
+    with open(TWILIO_CREDENTIALS_FILE, 'r') as f:
+        return json.load(f)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
