@@ -59,6 +59,7 @@ def save_users_secret(users_secret):
 def generate_secret_key():
     return pyotp.random_base32()
 
+''' ROUTES '''
 # Endpoint per la registrazione dell'utente
 @app.route('/register', methods=['POST'])
 def register():
@@ -186,11 +187,6 @@ def sms():
     )
     
     return jsonify({'message': 'Sms inviato correttamente'}), 200
-
-def load_twilio_credentials():
-    TWILIO_CREDENTIALS_FILE = SettingsManager.load_option('TWILIO_CREDENTIALS_FILE')
-    with open(TWILIO_CREDENTIALS_FILE, 'r') as f:
-        return json.load(f)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
