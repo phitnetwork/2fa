@@ -4,13 +4,41 @@ import os
 import json
 import pyotp
 
-import classes.settings_manager as settings_manager
+from classes.settings_manager import SettingsManager
+from classes.oracle_db_manager import SettingsManager
 
 
 '''
 DA AGGIUNGERE:
 - INVIO VIA MAIL DELL'OTP
 - CONNESSIONE A DATABASE ORACLE
+
+# Esempio di utilizzo della classe OracleDBManager
+if __name__ == "__main__":
+    # Parametri di connessione
+    hostname = 'your_hostname'
+    port = 'your_port'
+    service_name = 'your_service_name'
+    username = 'your_username'
+    password = 'your_password'
+
+    # Creazione di un'istanza del gestore del database Oracle
+    db_manager = OracleDBManager(hostname, port, service_name, username, password)
+
+    # Connessione al database
+    db_manager.connect()
+
+    # Esempio di esecuzione di una query
+    query = "SELECT * FROM your_table"
+    rows = db_manager.execute_query(query)
+    if rows:
+        for row in rows:
+            print(row)
+
+    # Disconnessione dal database
+    db_manager.disconnect()
+
+    
 '''
 
 
@@ -18,7 +46,7 @@ app = Flask(__name__)
 
 # Funzione per caricare i secret key degli utenti dal file
 def load_users_secret():
-    USERS_SECRET_FILE = settings_manager.load_option('USERS_SECRET_FILE')
+    USERS_SECRET_FILE = SettingsManager.load_option('USERS_SECRET_FILE')
     if os.path.exists(USERS_SECRET_FILE):
         with open(USERS_SECRET_FILE, 'r') as f:
             try:
@@ -31,7 +59,7 @@ def load_users_secret():
     
 # Funzione per salvare i secret key degli utenti nel file
 def save_users_secret(users_secret):
-    USERS_SECRET_FILE = settings_manager.load_option('USERS_SECRET_FILE')
+    USERS_SECRET_FILE = SettingsManager.load_option('USERS_SECRET_FILE')
     with open(USERS_SECRET_FILE, 'w') as f:
         json.dump(users_secret, f)
 

@@ -1,5 +1,5 @@
 # Ignora la cartella venv_2fa e tutti i suoi contenuti
-venv_2fa/
+venv/
 
 # Ignora tutti i file con estensione .pyc (file bytecode Python)
 *.pyc
