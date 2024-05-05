@@ -5,7 +5,7 @@ import json
 import pyotp
 
 from classes.settings_manager import SettingsManager
-from classes.oracle_db_manager import SettingsManager
+from classes.oracle_db_manager import OracleDBManager
 
 
 '''
@@ -13,17 +13,10 @@ DA AGGIUNGERE:
 - INVIO VIA MAIL DELL'OTP
 - CONNESSIONE A DATABASE ORACLE
 
-# Esempio di utilizzo della classe OracleDBManager
-if __name__ == "__main__":
-    # Parametri di connessione
-    hostname = 'your_hostname'
-    port = 'your_port'
-    service_name = 'your_service_name'
-    username = 'your_username'
-    password = 'your_password'
+Esempio di utilizzo della classe OracleDBManager
 
     # Creazione di un'istanza del gestore del database Oracle
-    db_manager = OracleDBManager(hostname, port, service_name, username, password)
+    db_manager = OracleDBManager()
 
     # Connessione al database
     db_manager.connect()
@@ -36,9 +29,8 @@ if __name__ == "__main__":
             print(row)
 
     # Disconnessione dal database
-    db_manager.disconnect()
+    db_manager.disconnect()    
 
-    
 '''
 
 
@@ -182,14 +174,13 @@ def sms():
     secret_key = users_secret[email]['secret_key']
     user_number = users_secret[email]['number']
 
-    # Twilio settings
-    twilio_credentials = load_twilio_credentials()
-    client = Client(twilio_credentials['account_sid'], twilio_credentials['auth_token'])
+    # Twilio settings    
+    client = Client(SettingsManager.load_option('TWILIO_ACCOUNT_SID'), SettingsManager.load_option('TWILIO_AUTH_TOKEN'))
 
     totp = pyotp.TOTP(secret_key)
 
     message = client.messages.create(
-        from_=twilio_credentials['twilio_number'],
+        from_ = SettingsManager.load_option('TWILIO_NUMBER'),
         to=user_number,
         body=f'Il tuo codice OTP è {totp.now()}'
     )
@@ -197,7 +188,7 @@ def sms():
     return jsonify({'message': 'Sms inviato correttamente'}), 200
 
 def load_twilio_credentials():
-    TWILIO_CREDENTIALS_FILE = settings_manager.load_option('TWILIO_CREDENTIALS_FILE')
+    TWILIO_CREDENTIALS_FILE = SettingsManager.load_option('TWILIO_CREDENTIALS_FILE')
     with open(TWILIO_CREDENTIALS_FILE, 'r') as f:
         return json.load(f)
 

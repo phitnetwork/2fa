@@ -1,11 +1,21 @@
 {
     "USERS_SECRET_FILE": "users_secret.json",
     "TWILIO_CREDENTIALS_FILE": "twilio_credentials.json",
+
+    "TWILIO_ACCOUNT_SID": "AC02ed1c3a08e4789316fd8680d4e9a75b",
+    "TWILIO_AUTH_TOKEN": "c6c4cc55fe1d2ec789cccf4e3cc1e328",
+    "TWILIO_NUMBER": "+13346410558",
+
     "ORACLE_HOSTNAME": "",
     "ORACLE_PORT": "",        
     "ORACLE_USERNAME": "",
     "ORACLE_PASSWORD": "",
-    "ORACLE_SERVICENAME": ""
+    "ORACLE_SERVICENAME": "",
 
+    "EMAIL_SMTP": "",
+    "EMAIL_PORT": "",
+    "EMAIL_USESSL": "",
+    "EMAIL_USERNAME": "",
+    "EMAIL_PASSWORD": ""
 
 }
