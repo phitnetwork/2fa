@@ -13,6 +13,29 @@ class OracleDBManager:
         self.connection = None
         self.cursor = None
 
+    def add_or_update_f2a_record(self, email, secret_key, number):
+        try:
+            # Esegui una query per inserire o aggiornare un record nella tabella f2a
+            query = f"MERGE INTO f2a USING DUAL ON (email = '{email}') \
+                      WHEN MATCHED THEN UPDATE SET secret_key = '{secret_key}', number = '{number}' \
+                      WHEN NOT MATCHED THEN INSERT (email, secret_key, number) VALUES ('{email}', '{secret_key}', '{number}')"
+            
+            self.cursor.execute(query)
+            self.connection.commit()  # Committa le modifiche al database
+            print("Record aggiunto o aggiornato con successo nella tabella f2a.")
+        except cx_Oracle.DatabaseError as e:
+            print("Errore durante l'aggiunta o l'aggiornamento del record nella tabella f2a:", e)
+
+    def remove_f2a_record(self, email):
+        try:
+            # Esegui una query per rimuovere il record dalla tabella f2a
+            query = f"DELETE FROM f2a WHERE email = '{email}'"
+            self.cursor.execute(query)
+            self.connection.commit()  # Committa le modifiche al database
+            print("Record rimosso con successo dalla tabella f2a.")
+        except cx_Oracle.DatabaseError as e:
+            print("Errore durante la rimozione del record dalla tabella f2a:", e)
+
     def connect(self):
         try:
             # Creazione del DSN

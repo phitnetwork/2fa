@@ -59,6 +59,8 @@ def save_users_secret(users_secret):
 def generate_secret_key():
     return pyotp.random_base32()
 
+
+
 ''' ROUTES '''
 # Endpoint per la registrazione dell'utente
 @app.route('/register', methods=['POST'])
