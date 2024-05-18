@@ -1,6 +1,8 @@
 import cx_Oracle
 from classes.settings_manager import SettingsManager
 
+# Questo è un test
+
 class OracleDBManager:
     
     def __init__(self, hostname=None, port=None, service_name=None, username=None, password=None):
